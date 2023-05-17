@@ -26,7 +26,7 @@ export default function ComicList() {
                 >
                     {
                         dataComic.length > 0 && dataComic.slice(0, 18).map((item, index) => (
-                            <Grid item key={index} xs={12} sm={6} md={3} lg={2} xl={1}>
+                            <Grid item key={index} xs={12} sm={6} md={3} lg={2} xl={2}>
                                 <ComicItem comic={item} />
                             </Grid>
                         ))
