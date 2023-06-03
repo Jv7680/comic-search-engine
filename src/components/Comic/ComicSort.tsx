@@ -3,14 +3,25 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Paper from '@mui/material/Paper';
 import { makeStyles } from "@mui/styles";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setSort } from '../../redux/slices/sortSlice';
+import { handleFullSearch } from '../../utils/function';
+import { useEffect } from 'react';
 
 export default function ComicSort() {
     const classes = useStyles();
-    const [selectedSort, setSelectedSort] = useState<string>("Tên");
+    const dispatch = useAppDispatch();
+    let textSearch = useAppSelector((state) => state.currentTextSearch);
+    let filter = useAppSelector((state) => state.filter);
+    let sort = useAppSelector((state) => state.sort);
+
+    useEffect(() => {
+        handleFullSearch(1, textSearch, filter, sort);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sort]);
 
     const handleChangeSort = (event: any) => {
-        setSelectedSort(event.target.value);
+        dispatch(setSort(+event.target.value));
     };
 
     return (
@@ -23,9 +34,9 @@ export default function ComicSort() {
             </div>
             {/* <FormControl> */}
             <FormGroup style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                <FormControlLabel value={"Tên"} control={<Checkbox checked={selectedSort === "Tên"} onChange={handleChangeSort} />} label="Tên" />
-                <FormControlLabel value={"Lượt xem nhiều"} control={<Checkbox checked={selectedSort === "Lượt xem nhiều"} onChange={handleChangeSort} />} label="Lượt xem nhiều" />
-                <FormControlLabel value={"Đánh giá cao"} control={<Checkbox checked={selectedSort === "Đánh giá cao"} onChange={handleChangeSort} />} label="Đánh giá cao" />
+                <FormControlLabel value={3} control={<Checkbox checked={sort === 3} onChange={handleChangeSort} />} label="Lượt xem nhiều" />
+                <FormControlLabel value={5} control={<Checkbox checked={sort === 5} onChange={handleChangeSort} />} label="Được đánh giá nhiều" />
+                <FormControlLabel value={7} control={<Checkbox checked={sort === 7} onChange={handleChangeSort} />} label="Đánh giá cao" />
             </FormGroup>
         </Paper>
     );
@@ -62,6 +73,7 @@ export const useStyles = makeStyles({
         borderRight: "2px solid #cbcbcb",
         minWidth: 120,
         marginRight: 30,
+        marginLeft: 8,
 
     },
     filterItem: {

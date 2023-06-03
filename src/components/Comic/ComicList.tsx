@@ -5,14 +5,21 @@ import Grid from '@mui/material/Grid';
 import ComicItem from './ComicItem';
 import Pagination from '@mui/material/Pagination';
 import { useAppSelector } from '../../redux/hooks';
+import { handleFullSearch } from '../../utils/function';
 
 export default function ComicList() {
     const dataComic = useAppSelector((state) => state.comics);
+    const totalPage = useAppSelector((state) => state.totalPage);
+    let textSearch = useAppSelector((state) => state.currentTextSearch);
+    let filter = useAppSelector((state) => state.filter);
+    let sort = useAppSelector((state) => state.sort);
+    let currentPage = useAppSelector((state) => state.currentPage);
     const classes = useStyles();
 
-    const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    const handleChangePage = async (event: React.ChangeEvent<unknown>, value: number) => {
         // console.log(event);
         console.log(value);
+        await handleFullSearch(value, textSearch, filter, sort);
     };
 
     return (
@@ -38,7 +45,7 @@ export default function ComicList() {
                 elevation={1}
                 className={classes.pagination}
             >
-                <Pagination count={dataComic.length} variant="outlined" color="primary" showFirstButton showLastButton onChange={handleChangePage} />
+                <Pagination count={totalPage} page={currentPage} variant="outlined" color="primary" showFirstButton showLastButton onChange={handleChangePage} />
             </Paper>
         </>
     );

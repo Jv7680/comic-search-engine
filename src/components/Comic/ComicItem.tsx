@@ -1,29 +1,33 @@
 // import { useState, useEffect } from "react";
-import { makeStyles } from "@mui/styles";
-import { ComicElement } from "../../redux/slices/comicsSlice";
-import Rating from '@mui/material/Rating';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { StarBorderOutlined } from "@mui/icons-material";
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import Rating from '@mui/material/Rating';
+import { makeStyles } from "@mui/styles";
 
 interface ComicItemProps {
-    comic: ComicElement;
+    comic: any;
 };
 
 export default function ComicItem(props: ComicItemProps) {
     const { comic } = props;
     const classes = useStyles();
+
+    const formatGenres = (genres: []) => {
+        return genres.toString().replaceAll(",", " - ");
+    };
+
     return (
         <div className={classes.root}>
             <div className={classes.imageArea}>
-                <img src={comic.avatar} alt="notFound" />
+                <img src={comic._source.avatar} alt="notFound" style={{ cursor: "pointer" }} />
                 <div>
                     <span>
                         &ensp;
-                        {comic.rating}
+                        {comic._source.rating}
                         &nbsp;
                         <Rating
                             name="read-only"
-                            value={+comic.rating}
+                            value={+comic._source.rating}
                             precision={0.1}
                             readOnly
                             size="small"
@@ -33,34 +37,34 @@ export default function ComicItem(props: ComicItemProps) {
                         />
                     </span>
                     <span>
-                        &ensp;<VisibilityOutlinedIcon fontSize="inherit" />&nbsp;{comic.numberOfViews}
+                        &ensp;<VisibilityOutlinedIcon fontSize="inherit" />&nbsp;{comic._source.numberOfViews}
                     </span>
                 </div>
             </div>
             <div className={classes.descriptionArea}>
                 <span className="title">
-                    {comic.title}
+                    {comic._source.title}
                 </span>
                 <br />
                 <span className="chapterNumber">
-                    <span className="label">Đến chương:</span> {comic.chapterNumber}
+                    <span className="label">Đến chương:</span> {comic._source.chapterNumber}
                 </span>
                 <br />
 
                 <span className="languages">
-                    <span className="label">Ngôn ngữ:</span> {comic.languages}
+                    <span className="label">Ngôn ngữ:</span> {comic._source.languages || "Việt Nam"}
                 </span>
                 <br />
                 <span className="numberOfReviews">
-                    <span className="label">Đánh giá:</span> {comic.numberOfReviews}
+                    <span className="label">Lượt đánh giá:</span> {comic._source.numberOfReviews}
                 </span>
                 <br />
                 <span className="status">
-                    <span className="label">Trạng thái:</span> {comic.status}
+                    <span className="label">Trạng thái:</span> {comic._source.status || "Đang tiến hành"}
                 </span>
                 <br />
                 <span className="genres">
-                    <span className="label">Thể loại:</span> {comic.genres}
+                    <span className="label">Thể loại:</span> {formatGenres(comic._source.genres)}
                 </span>
             </div>
         </div>

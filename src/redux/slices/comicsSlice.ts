@@ -1,11 +1,10 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { initComics } from '../initComicsData';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface ComicElement {
     avatar: string;
     title: string;
     chapterNumber: string;
-    genres: string;
+    genres: string | string[];
     languages: string;
     status: string;
     numberOfViews: string;
@@ -13,17 +12,19 @@ export interface ComicElement {
     rating: string;
 }
 
-const initState: ComicElement[] = [...initComics];
+const initState: any[] = [];
 
 const comicsSlice = createSlice({
     name: 'comics',
     initialState: initState,
     reducers: {
-        setComics: (state, action: PayloadAction<ComicElement[]>) => {
+        setComics: (state, action: any) => {
             state = [...action.payload];
+            return state;
         },
         clearComics: (state) => {
             state = [];
+            return state;
         },
     },
     extraReducers: (builder) => {

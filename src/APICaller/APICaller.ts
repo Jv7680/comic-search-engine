@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL: string = "https://";
+const BASE_URL: string = "http://localhost:3001";
 
 export const APICaller = axios.create({
     baseURL: BASE_URL,

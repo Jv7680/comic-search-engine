@@ -1,19 +1,36 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { IconButton, InputAdornment, OutlinedInput } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import { useState } from "react";
 import { makeStyles } from "@mui/styles";
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setCurrentTextSearch } from '../../redux/slices/currentTextSearchSlice';
+import { handleFullSearch } from '../../utils/function';
 
 export default function Header() {
-    const [textSearch, setTextSearch] = useState<string>("");
+    let textSearch = useAppSelector((state) => state.currentTextSearch);
+    let filter = useAppSelector((state) => state.filter);
+    let sort = useAppSelector((state) => state.sort);
+    const dispatch = useAppDispatch();
     const classes = useStyles();
 
-    const handleChangeInputSearch = (event: any) => {
-        setTextSearch(event.target.value);
+    useEffect(() => {
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const fetchData = async () => {
+        await handleFullSearch(1, "", filter, sort);
     };
 
-    const handleSearch = (event: any) => {
-        console.log("Searching");
+    const handleChangeInputSearch = (event: any) => {
+        dispatch(setCurrentTextSearch(event.target.value));
+    };
+
+    const handleSearch = async (event: any) => {
+        console.log("Searching với key: ", textSearch);
+
+        await handleFullSearch(1, textSearch, filter, sort);
     };
 
     return (
@@ -47,6 +64,24 @@ export default function Header() {
                     color="secondary"
                     fullWidth
                     placeholder="Tìm kiếm"
+                // sx={{
+                //     "& .MuiOutlinedInput-notchedOutline": {
+                //         borderColor: "#000000",
+                //     },
+                //     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                //         borderColor: "#523747",
+                //     },
+                //     "&.Mui-focused input": {
+                //         color: "#523747"
+                //     },
+                //     "&:hover .MuiOutlinedInput-notchedOutline": {
+                //         borderColor: "yellow"
+                //     },
+                //     "& input": {
+                //         fontFamily: "VT323",
+                //         fontSize: 20,
+                //     }
+                // }}
                 />
             </div>
         </Paper>
