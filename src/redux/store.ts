@@ -6,6 +6,8 @@ import totalPageReducer from './slices/totalPageSlice';
 import currentTextSearchReducer from './slices/currentTextSearchSlice';
 import sortReducer from './slices/sortSlice';
 import filterReducer from './slices/filterSlice';
+import countSearchReducer from './slices/countSearchSlice';
+import totalResultReducer from './slices/totalResultSlice';
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +18,8 @@ export const store = configureStore({
         currentTextSearch: currentTextSearchReducer,
         sort: sortReducer,
         filter: filterReducer,
+        countSearch: countSearchReducer,
+        totalResult: totalResultReducer,
     },
 });
 

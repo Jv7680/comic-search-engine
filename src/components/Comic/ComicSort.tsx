@@ -14,6 +14,8 @@ export default function ComicSort() {
     let textSearch = useAppSelector((state) => state.currentTextSearch);
     let filter = useAppSelector((state) => state.filter);
     let sort = useAppSelector((state) => state.sort);
+    let countSearch = useAppSelector((state) => state.countSearch);
+    let totalResult = useAppSelector((state) => state.totalResult);
 
     useEffect(() => {
         handleFullSearch(1, textSearch, filter, sort);
@@ -38,6 +40,12 @@ export default function ComicSort() {
                 <FormControlLabel value={5} control={<Checkbox checked={sort === 5} onChange={handleChangeSort} />} label="Được đánh giá nhiều" />
                 <FormControlLabel value={7} control={<Checkbox checked={sort === 7} onChange={handleChangeSort} />} label="Đánh giá cao" />
             </FormGroup>
+            {
+                countSearch > 0 &&
+                <div className={classes.totalComic}>
+                    Đã tìm thấy {totalResult} kết quả
+                </div>
+            }
         </Paper>
     );
 };
@@ -51,6 +59,7 @@ export const useStyles = makeStyles({
         marginBottom: 8,
         display: "flex",
         alignItems: "center",
+        position: 'relative',
 
         "& .MuiFormControlLabel-root": {
             height: 30,
@@ -75,6 +84,20 @@ export const useStyles = makeStyles({
         marginRight: 30,
         marginLeft: 8,
 
+    },
+    totalComic: {
+        fontSize: 14,
+        fontWeight: "bold",
+        fontStyle: "italic",
+        display: "flex",
+        alignItems: "center",
+        minWidth: 120,
+        marginRight: 30,
+        marginLeft: 8,
+        position: 'absolute',
+        top: '0',
+        right: '0',
+        height: '100%',
     },
     filterItem: {
         marginBottom: 8,
