@@ -17,7 +17,7 @@ export default function SuggestComicList(props: SuggestComicListProps) {
         >
             {
                 dataComic.length > 0 && dataComic.map((item, index) => (
-                    <div key={index}>
+                    <div key={index} style={{ width: "100%" }}>
                         <Grid item key={index} xs={12} sm={12} md={12} lg={12} xl={12}>
                             <SuggestComicItem comic={item} />
                         </Grid>
