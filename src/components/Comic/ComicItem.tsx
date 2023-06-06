@@ -37,7 +37,7 @@ export default function ComicItem(props: ComicItemProps) {
                         />
                     </span>
                     <span>
-                        &ensp;<VisibilityOutlinedIcon fontSize="inherit" />&nbsp;{comic._source.numberOfViews === 0 ? 100123 : comic._source.numberOfViews}
+                        &ensp;<VisibilityOutlinedIcon fontSize="inherit" />&nbsp;{comic._source.numberOfViews}
                     </span>
                 </div>
             </div>
