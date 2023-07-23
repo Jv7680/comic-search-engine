@@ -1,7 +1,4 @@
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { IconButton, InputAdornment, OutlinedInput } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import { useState } from "react";
 import { makeStyles } from "@mui/styles";
 
 export default function Footer() {
