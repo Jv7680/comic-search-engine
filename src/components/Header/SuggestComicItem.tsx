@@ -12,10 +12,14 @@ export default function SuggestComicItem(props: SuggestComicItemProps) {
         return genres.toString().replaceAll(",", " - ");
     };
 
+    const handleImageError = (event: any) => {
+        event.target.src = "https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/39213531/39213531-1696148640414-3b7e3f7beafa5.jpg";
+    };
+
     return (
         <div className={classes.root}>
             <div className={classes.imageArea}>
-                <img src={comic._source.avatar} alt="notFound" style={{ cursor: "pointer" }} />
+                <img src={comic._source.avatar} alt="notFound" onError={handleImageError} style={{ cursor: "pointer" }} />
             </div>
             <div className={classes.descriptionArea}>
                 <span className="title">
@@ -62,6 +66,7 @@ export const useStyles = makeStyles({
         paddingTop: "150px",
         borderRadius: 4,
         overflow: "hidden",
+        marginRight: "8px",
 
         "& img": {
             position: "absolute",
